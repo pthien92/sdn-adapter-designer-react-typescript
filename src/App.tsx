@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createHashHistory } from 'history';
+import { ApplicationReducer, IApplicationState } from './reducers/ApplicationReducers';
+import StateProvider from './components/StateProvider/StateProvider';
+import { Router, Switch, Route, Redirect } from 'react-router';
+
+import 'normalize.css/normalize.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Admin } from './layouts/Admin/Admin';
+
+const history = createHashHistory();
+
+const initialState: IApplicationState = {
+  auth: "",
+  loading: false,
+  theme: "bp-dark",
+  navbarTabId: localStorage.getItem('navbarTabId') || 'configuration'
+}
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StateProvider reducer={ApplicationReducer} initialState={initialState}>
+      <Router history={history}>
+        <Switch>
+          <Route path="/" render={(props: any) => <Admin {...props} /> } />
+          <Route path="/" exact render={(props: any) => <Redirect to="/configuration"/> } />
+        </Switch>
+      </Router>
+    </StateProvider>
   );
 }
 
