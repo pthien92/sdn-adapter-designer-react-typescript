@@ -3,6 +3,7 @@ import { createHashHistory } from 'history';
 import { ApplicationReducer, IApplicationState } from './reducers/ApplicationReducers';
 import StateProvider from './components/StateProvider/StateProvider';
 import { Router, Switch, Route, Redirect } from 'react-router';
+import { DeviceType } from './reducers/ApplicationReducers';
 
 import 'normalize.css/normalize.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
@@ -17,8 +18,24 @@ const history = createHashHistory();
 const initialState: IApplicationState = {
   auth: "",
   loading: false,
-  theme: "bp-dark",
-  navbarTabId: localStorage.getItem('navbarTabId') || 'configuration'
+  theme: localStorage.getItem("theme") || "bp-dark",
+  navbarTabId: localStorage.getItem('navbarTabId') || 'configuration',
+  clientPortProps: {
+    name: "pgwtap2",
+    ip: "10.1.2.4",
+    subnet: "24",
+    mac: "00:00:00:00:10:04",
+    onState: true,
+    type: DeviceType.Tap 
+  },
+  serverPortProps: {
+    name: "outtap2",
+    ip: "0.0.0.0",
+    subnet: "24",
+    mac: "",
+    onState: true,
+    type: DeviceType.Veth
+  }
 }
 
 const App: React.FC = () => {
@@ -26,8 +43,8 @@ const App: React.FC = () => {
     <StateProvider reducer={ApplicationReducer} initialState={initialState}>
       <Router history={history}>
         <Switch>
-          <Route path="/" render={(props: any) => <Admin {...props} /> } />
           <Route path="/" exact render={(props: any) => <Redirect to="/configuration"/> } />
+          <Route path="/" render={(props: any) => <Admin {...props} /> } />
         </Switch>
       </Router>
     </StateProvider>

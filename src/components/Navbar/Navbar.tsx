@@ -41,7 +41,7 @@ export class AppNavbar extends React.Component<any,any> {
         return(
             <Navbar className={state.theme} fixedToTop>
                 <NavbarGroup align={Alignment.LEFT}>
-                    <NavbarHeading>SDN Adapter Designer</NavbarHeading>
+                    <NavbarHeading>SDN ADAPTER DESIGNER</NavbarHeading>
                 </NavbarGroup>
                 <NavbarGroup align={Alignment.RIGHT}>
                     <Tabs
