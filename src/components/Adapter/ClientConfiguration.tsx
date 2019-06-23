@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Validator } from 'ip-num';
 import { AppNotification } from '../Notifications/Notifications';
 
+
 const VerticalSpacer = styled.div`
     padding: 3px;
 `
@@ -16,13 +17,6 @@ const SelectContainer = styled.div`
 
 export class ClientConfiguration extends React.Component<any,any> {
     static contextType = StateContext;
-
-    // constructor(props: any) {
-    //     super(props);
-    //     this.state = {
-    //         clientPortProps: s
-    //     }
-    // }
 
     handleEditingClientPortOnState = () => {
         const [state, dispatch] = this.context;
@@ -177,8 +171,8 @@ export class ClientConfiguration extends React.Component<any,any> {
                                 value={state.clientPortProps.type}
                                 onChange={(event: any) => this.handleEditingClientPortDeviceType(event.target.value)}
                             >
-                                <option value="0">Veth</option>
-                                <option value="1">Tap</option>
+                                <option value="0">Tap</option>
+                                <option value="1">Veth</option>
                             </select>
                         </SelectContainer>
                     </Col>

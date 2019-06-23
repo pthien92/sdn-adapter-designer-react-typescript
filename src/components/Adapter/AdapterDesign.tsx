@@ -8,11 +8,15 @@ import { NetworkComponent } from './NetworkComponent';
 import LineTo from 'react-lineto';
 
 
-
 export default class AdapterDesign extends React.Component<any,any> {
     static contextType = StateContext;
+
+
     render() {
         const [state, dispatch] = this.context;
+        const clientImage = "/images/ethernet-" + ["off", "on"][state.clientPortProps.onState ? 1 : 0]  + "-64.png";
+        const serverImage = "/images/ethernet-" + ["off", "on"][state.serverPortProps.onState ? 1 : 0]  + "-64.png";
+
         return (
             <Card className={state.theme}>
                 <Row>
@@ -20,13 +24,13 @@ export default class AdapterDesign extends React.Component<any,any> {
                         <ClientConfiguration/>
                    </Col>
                    <Col>
-                        <NetworkComponent name={"clientPort"} img={"/images/ethernet-on-64.png"} width={64} height={64}/>
+                        <NetworkComponent name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
                    </Col>
                    <Col>
-                        <NetworkComponent name={"Switch"} img={"images/router.svg"} width={128} height={100}/>
+                        <NetworkComponent name={"SDN Adapter Switch"} img={"images/router.svg"} width={128} height={100}/>
                    </Col>
                    <Col>
-                        <NetworkComponent name={"serverPort"} img={"/images/ethernet-off-64.png"} width={64} height={64}/>
+                        <NetworkComponent name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
                    </Col>
                    <Col>
                         <ServerConfiguration/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Responsive, WidthProvider, Layout } from 'react-grid-layout';
 import AdapterDesign from '../../components/Adapter/AdapterDesign';
+import { CodeEditor } from '../../components/CodeEditor/CodeEditor';
 
 const ResponsiveReactLayout = WidthProvider(Responsive);
 
@@ -57,8 +58,12 @@ export class Configuration extends React.Component<any,any> {
                     <div key="adapter-panel" >
                         <AdapterDesign/>
                     </div>
-                    <div key="script-code-panel" >script setup code</div>
-                    <div key="controller-code-panel" >controller code</div>
+                    <div key="script-code-panel" >
+                        <CodeEditor></CodeEditor>
+                    </div>
+                    <div key="controller-code-panel" >
+                        <CodeEditor></CodeEditor>
+                    </div>
                 </ResponsiveReactLayout>
             </>
         );
