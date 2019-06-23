@@ -27,8 +27,13 @@ export class ClientConfiguration extends React.Component<any,any> {
 
     handleEditingClientPortName = (name: string) => {
         const [state, dispatch] = this.context;
+        if (name === "") {
+            AppNotification.show({icon: 'error', message: "Port name can not be empty", intent: Intent.DANGER})
+        }
+        name = name.replace(/ /g, "");
         const newClientState = {...state.clientPortProps};
         newClientState.name = name;
+        newClientState.peerName = name + "gen";
         dispatch({clientPortProps: newClientState});
     }
 
@@ -37,9 +42,9 @@ export class ClientConfiguration extends React.Component<any,any> {
         const newClientState = {...state.clientPortProps};
         let result = Validator.isValidIPv4CidrNotation(ip + "/" +newClientState.subnet);
         if (!result[0]) {
-            AppNotification.show({icon: 'lightbulb', message: result[1][0], intent: Intent.DANGER})
+            AppNotification.show({icon: 'warning-sign', message: result[1][0], intent: Intent.DANGER})
         } else {
-            AppNotification.show({icon: 'lightbulb', message: "IPv4/subnet is correct", intent: Intent.SUCCESS})
+            AppNotification.show({icon: 'tick-circle', message: "IPv4/subnet is correct", intent: Intent.SUCCESS})
         }
         newClientState.ip = ip;
         dispatch({clientPortProps: newClientState});
@@ -50,9 +55,9 @@ export class ClientConfiguration extends React.Component<any,any> {
         const newClientState = {...state.clientPortProps};
         let result = Validator.isValidIPv4CidrNotation(newClientState.ip + "/" + subnet);
         if (!result[0]) {
-            AppNotification.show({icon: 'lightbulb', message: result[1][0], intent: Intent.DANGER})
+            AppNotification.show({icon: 'warning-sign', message: result[1][0], intent: Intent.DANGER})
         } else {
-            AppNotification.show({icon: 'lightbulb', message: "IPv4/subnet is correct", intent: Intent.SUCCESS})
+            AppNotification.show({icon: 'tick-circle', message: "IPv4/subnet is correct", intent: Intent.SUCCESS})
         }
         newClientState.subnet = subnet;
         dispatch({clientPortProps: newClientState});

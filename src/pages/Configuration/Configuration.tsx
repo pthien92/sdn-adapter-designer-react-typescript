@@ -26,13 +26,13 @@ export class Configuration extends React.Component<any,any> {
         return {
             lg: [
                 {i: 'adapter-panel', x: 0, y:0, w: 12, h: 6},
-                {i: 'script-code-panel', x: 0, y:6, w: 6, h: 4},
-                {i: 'controller-code-panel', x: 6, y:6, w: 6, h: 4},
+                {i: 'script-code-panel', x: 0, y:6, w: 6, h: 11},
+                {i: 'controller-code-panel', x: 6, y:6, w: 6, h: 11},
             ],
             md: [
                 {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},
-                {i: 'script-code-panel', x: 0, y:0, w: 12, h: 4},
-                {i: 'controller-code-panel', x: 0, y:0, w: 12, h: 4},
+                {i: 'script-code-panel', x: 0, y:0, w: 12, h: 12},
+                {i: 'controller-code-panel', x: 0, y:0, w: 12, h: 12},
             ],
             sm: [
                 {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},
@@ -53,6 +53,7 @@ export class Configuration extends React.Component<any,any> {
                     isResizable={false}
                     isDraggable={true}
                     onLayoutChange={(currentLayout: Layout[], allLayouts: any) => console.log(currentLayout)}
+                    draggableCancel="input,textarea"
 
                 >
                     <div key="adapter-panel" >

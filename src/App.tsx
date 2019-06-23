@@ -21,7 +21,8 @@ const initialState: IApplicationState = {
   theme: localStorage.getItem("theme") || "bp-dark",
   navbarTabId: localStorage.getItem('navbarTabId') || 'configuration',
   clientPortProps: {
-    name: "pgwtap2",
+    name: "pgwtap",
+    peerName: "pgwtapgen",
     ip: "10.1.2.4",
     subnet: "24",
     mac: "00:00:00:00:10:04",
@@ -29,12 +30,19 @@ const initialState: IApplicationState = {
     type: DeviceType.Tap 
   },
   serverPortProps: {
-    name: "outtap2",
+    name: "outtap",
+    peerName: "outtapgen",
     ip: "0.0.0.0",
     subnet: "24",
     mac: "",
     onState: true,
     type: DeviceType.Veth
+  },
+  networkTranslation: {
+    serverList: { "10.1.2.1" : "00:00:00:00:00:01"},
+    inPorts: [1, 3, 5],
+    outPortMap: { '1' : '2'},
+    serverMap: {}
   }
 }
 

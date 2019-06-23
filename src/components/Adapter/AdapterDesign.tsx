@@ -3,9 +3,10 @@ import {Row, Col} from 'reactstrap';
 import { ClientConfiguration } from './ClientConfiguration';
 import { ServerConfiguration } from './ServerConfiguration';
 import { StateContext } from '../StateProvider/StateProvider';
-import { Card } from '@blueprintjs/core';
+import { Card, H4 } from '@blueprintjs/core';
 import { NetworkComponent } from './NetworkComponent';
 import LineTo from 'react-lineto';
+import { ServerTranslation } from './ServerTranslation';
 
 
 export default class AdapterDesign extends React.Component<any,any> {
@@ -24,19 +25,52 @@ export default class AdapterDesign extends React.Component<any,any> {
                         <ClientConfiguration/>
                    </Col>
                    <Col>
-                        <NetworkComponent name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                        {state.clientPortProps.type == 1 && 
+                            <Row>
+                                <Col>
+                                    <NetworkComponent className="A" name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                                </Col>
+                                <Col>
+                                    <NetworkComponent className="A" name={state.clientPortProps.peerName} img={clientImage} width={64} height={64}/>
+                                </Col>
+                            </Row>
+                        }
+                        {state.clientPortProps.type == 0 &&
+                            <NetworkComponent className="A" name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                        }
                    </Col>
                    <Col>
-                        <NetworkComponent name={"SDN Adapter Switch"} img={"images/router.svg"} width={128} height={100}/>
+                        <Row>
+                            <Col>
+                                <NetworkComponent className="B" name={<H4>SDN Adapter Switch</H4>} img={"images/router.svg"} width={128} height={100}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <ServerTranslation/>
+                            </Col>
+                        </Row>
                    </Col>
                    <Col>
-                        <NetworkComponent name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
+                        {state.serverPortProps.type == 1 &&
+                            <Row>
+                                <Col>
+                                    <NetworkComponent name={state.serverPortProps.peerName} img={serverImage} width={64} height={64}/>
+                                </Col>
+                                <Col>
+                                    <NetworkComponent name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
+                                </Col>
+                            </Row>
+                        }
+                        {state.serverPortProps.type == 0 &&
+                            <NetworkComponent name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
+                        }
                    </Col>
                    <Col>
                         <ServerConfiguration/>
                    </Col>
                 </Row> 
-                {() => <LineTo from="clientPort" to="Switch" />}
+                <LineTo from="A" to="B"/>
             </Card>
         );
     }

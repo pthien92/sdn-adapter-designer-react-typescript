@@ -5,12 +5,20 @@ export enum DeviceType {
 }
 
 export interface ISDNAdapterPortProps {
-    name: string
+    name: string        // interface name
+    peerName: string    // interface peer name
     ip: string
     subnet: string
     mac: string
     onState: boolean,
     type: DeviceType
+}
+
+export interface INetworkTranslationProps {
+    serverList: {},
+    inPorts: number[],
+    outPortMap: {}
+    serverMap: {} // this feature is pending
 }
 
 export interface IApplicationState {
@@ -20,6 +28,7 @@ export interface IApplicationState {
     navbarTabId: any
     clientPortProps: ISDNAdapterPortProps
     serverPortProps: ISDNAdapterPortProps
+    networkTranslation: INetworkTranslationProps
 }
 
 
