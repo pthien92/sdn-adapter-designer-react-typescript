@@ -28,21 +28,21 @@ export default class AdapterDesign extends React.Component<any,any> {
                         {state.clientPortProps.type == 1 && 
                             <Row>
                                 <Col>
-                                    <NetworkComponent className="A" name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                                    <NetworkComponent name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
                                 </Col>
                                 <Col>
-                                    <NetworkComponent className="A" name={state.clientPortProps.peerName} img={clientImage} width={64} height={64}/>
+                                    <NetworkComponent name={state.clientPortProps.peerName} img={clientImage} width={64} height={64}/>
                                 </Col>
                             </Row>
                         }
                         {state.clientPortProps.type == 0 &&
-                            <NetworkComponent className="A" name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                            <NetworkComponent name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
                         }
                    </Col>
                    <Col>
                         <Row>
                             <Col>
-                                <NetworkComponent className="B" name={<H4>SDN Adapter Switch</H4>} img={"images/router.svg"} width={128} height={100}/>
+                                <NetworkComponent name={<H4>SDN Adapter</H4>} img={"images/router.svg"} width={128} height={100}/>
                             </Col>
                         </Row>
                         <Row>

@@ -53,7 +53,7 @@ export class Configuration extends React.Component<any,any> {
                     isResizable={false}
                     isDraggable={true}
                     onLayoutChange={(currentLayout: Layout[], allLayouts: any) => console.log(currentLayout)}
-                    draggableCancel="input,textarea"
+                    draggableCancel="input,textarea,button"
 
                 >
                     <div key="adapter-panel" >
