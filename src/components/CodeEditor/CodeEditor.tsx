@@ -11,9 +11,10 @@ export class CodeEditor extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            code: ['function x() {',
+            code: this.props.code || ['function x() {',
                 '\tconsole.log("Hello world!");',
                 '}'].join('\n'),
+            language: this.props.language || 'javascript'
         }
     }
     editorDidMount(editor: any, monaco: any) {
@@ -33,8 +34,8 @@ export class CodeEditor extends React.Component<any, any> {
             <Card className={state.theme} style={{padding: "10px"}}>
                 <MonacoEditor
                     width="100%"
-                    height="400"
-                    language="javascript"
+                    height="600"
+                    language={this.state.language}
                     theme={state.theme === "bp3-dark" ? "vs-dark" : "vs-light"}
                     value={code}
                     options={options}

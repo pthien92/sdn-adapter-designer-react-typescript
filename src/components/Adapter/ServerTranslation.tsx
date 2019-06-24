@@ -9,6 +9,9 @@ import { AppNotification } from '../Notifications/Notifications';
 const SelectContainer = styled.div`
     display: block !important;
 `
+const VerticalSpacer = styled.div`
+    padding: 3px;
+`
 
 export class ServerTranslation extends React.Component<any,any> {
     static contextType = StateContext;
@@ -19,7 +22,12 @@ export class ServerTranslation extends React.Component<any,any> {
             isAddingServer: false,
             newServerIP: "",
             newServerMac: "",
-            selectedValue: 0
+            selectedValue: 0,
+            // port map states
+            isAddingPortMap: false,
+            newInPort: "",
+            newOutPort: "",
+            selectedOutPortValue: 0
         }
     }
 
@@ -66,6 +74,44 @@ export class ServerTranslation extends React.Component<any,any> {
         }
     }
 
+    handleOutPortSelectChange = (index: number) =>{
+        this.setState({selectedValue: index});
+    }
+
+    handleAddNewInPortChange = (newInPort: any) => {
+        this.setState({newInPort: newInPort})
+    }
+
+    handleAddNewOutPortChange = (newOutPort: any) => {
+        this.setState({newOutPort: newOutPort})
+    }
+
+    handleAddPortMap = () => {
+        this.setState({isAddingPortMap: !this.state.isAddingPortMap});
+    }
+
+    handleAddPortMapSubmit = () => {
+        const [state, dispatch ] = this.context;
+        if (this.state.newInPort < 0 || this.state.newOutPort < 0 || 
+            this.state.newInPort === "" || this.state.newOutPort === "" || 
+            (this.state.newInPort === this.state.newOutPort)
+            ) {
+            AppNotification.show({icon: 'error', message: "Ports numbber can not be empty, or equals", intent: Intent.WARNING})
+        } else {
+            AppNotification.show({icon: 'tick-circle', message: "Added Port Map", intent: Intent.SUCCESS})
+            let newPortMap: any = {...state.networkTranslation.outPortMap}; 
+            newPortMap[this.state.newInPort] =  this.state.newOutPort;
+            const newNetworkTranslation = { ...state.networkTranslation};
+            newNetworkTranslation.outPortMap= newPortMap;
+            dispatch({networkTranslation: newNetworkTranslation});
+            this.setState({isAddingPortMap: false, newInPort: "", newOutPort: ""});
+        }
+    }
+
+    handleDeletePortMap = () => {
+
+    }
+
     render() {
         const [state, dispatch] = this.context;
         return (
@@ -77,21 +123,21 @@ export class ServerTranslation extends React.Component<any,any> {
                     <Col>
                         <SelectContainer className="bp3-select bp3-small"
                         >
-                            <select 
-                            name="serverItemSelect"
-                            value={this.state.selectedValue}
-                            onChange={(event: any) => this.handleServerSelectChange(event.target.value)}
+                            <select
+                                name="serverItemSelect"
+                                value={this.state.selectedValue}
+                                onChange={(event: any) => this.handleServerSelectChange(event.target.value)}
                             >
-                            {Object.keys(state.networkTranslation.serverList).length && 
-                            // this.setState({selectedValue: 0}) ||
-                            Object.keys(state.networkTranslation.serverList).map((server: string, index: number) => {
-                                // console.log(server + ":" + state.networkTranslation.serverList[server]);
-                                return (
-                                    <option key={index} value={index}>
-                                        {server + "-" + state.networkTranslation.serverList[server]}
-                                    </option>
-                                );
-                            })}
+                                {Object.keys(state.networkTranslation.serverList).length > 0 &&
+                                    // this.setState({selectedValue: 0}) ||
+                                    Object.keys(state.networkTranslation.serverList).map((server: string, index: number) => {
+                                        // console.log(server + ":" + state.networkTranslation.serverList[server]);
+                                        return (
+                                            <option key={index} value={index}>
+                                                {server + "-" + state.networkTranslation.serverList[server]}
+                                            </option>
+                                        );
+                                    })}
                             </select>
                         </SelectContainer>
                     </Col>
@@ -105,7 +151,7 @@ export class ServerTranslation extends React.Component<any,any> {
                 { this.state.isAddingServer &&
                 <Row>
                     <Col xs="3">
-                        Add Server
+                        New ...
                     </Col>
                     <Col xs="3">
                         <div className="bp3-input-group bp3-small">
@@ -131,6 +177,72 @@ export class ServerTranslation extends React.Component<any,any> {
                     </Col>
                     <Col xs="1">
                         <Button small onClick={this.handleAddServerSubmit}>Add</Button>
+                    </Col>
+                </Row>
+                }
+                <VerticalSpacer/>
+                <Row>
+                    <Col xs="3">
+                        PortMap
+                    </Col>
+                    <Col>
+                        <SelectContainer className="bp3-select bp3-small"
+                        >
+                            <select
+                                name="serverItemSelect"
+                                value={this.state.selectedOutPortValue}
+                                onChange={(event: any) => this.handleOutPortSelectChange(event.target.value)}
+                            >
+                                {Object.keys(state.networkTranslation.outPortMap).length > 0 &&
+                                    // this.setState({selectedValue: 0}) ||
+                                    Object.keys(state.networkTranslation.outPortMap).map((in_port: string, index: number) => {
+                                        // console.log(server + ":" + state.networkTranslation.serverList[server]);
+                                        return (
+                                            <option key={"outport"+index} value={index}>
+                                                {"in " + in_port + " -> " + "out "+ state.networkTranslation.outPortMap[in_port]}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
+                        </SelectContainer>
+                    </Col>
+                    <Col xs="2">
+                        <Button small onClick={this.handleDeletePortMap}>Delete</Button>
+                    </Col>
+                    <Col xs="1">
+                        <Button small onClick={this.handleAddPortMap}> {this.state.isAddingPortMap ? "-" : "+"}</Button>
+                    </Col>
+
+                </Row>
+                { this.state.isAddingPortMap &&
+                <Row>
+                    <Col xs="3">
+                        New ...
+                    </Col>
+                    <Col xs="3">
+                        <div className="bp3-input-group bp3-small">
+                            <input
+                                className="bp3-input"
+                                type="input"
+                                value={this.state.newInPort}
+                                onChange={(event: any) => this.handleAddNewInPortChange(event.target.value)}
+                                placeholder="In port ..."
+                            />
+                        </div>
+                    </Col>
+                    <Col xs="3">
+                        <div className="bp3-input-group bp3-small">
+                            <input
+                                className="bp3-input"
+                                type="input"
+                                value={this.state.newOutPort}
+                                onChange={(event: any) => this.handleAddNewOutPortChange(event.target.value)}
+                                placeholder="Out port ..."
+                            />
+                        </div>
+                    </Col>
+                    <Col xs="1">
+                        <Button small onClick={this.handleAddPortMapSubmit}>Map 1-to-1</Button>
                     </Col>
                 </Row>
                 }
