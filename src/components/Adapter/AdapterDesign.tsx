@@ -24,8 +24,8 @@ export default class AdapterDesign extends React.Component<any,any> {
                    <Col>
                         <ClientConfiguration/>
                    </Col>
-                   <Col>
-                        {state.clientPortProps.type == 1 && 
+                   <Col xs="2">
+                        {state.clientPortProps.type === 1 && 
                             <Row>
                                 <Col>
                                     <NetworkComponent name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
@@ -35,11 +35,11 @@ export default class AdapterDesign extends React.Component<any,any> {
                                 </Col>
                             </Row>
                         }
-                        {state.clientPortProps.type == 0 &&
+                        {state.clientPortProps.type === 0 &&
                             <NetworkComponent name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
                         }
                    </Col>
-                   <Col>
+                   <Col xs="4">
                         <Row>
                             <Col>
                                 <NetworkComponent name={<H4>SDN Adapter</H4>} img={"images/router.svg"} width={128} height={100}/>
@@ -51,8 +51,8 @@ export default class AdapterDesign extends React.Component<any,any> {
                             </Col>
                         </Row>
                    </Col>
-                   <Col>
-                        {state.serverPortProps.type == 1 &&
+                   <Col xs="2">
+                        {state.serverPortProps.type === 1 &&
                             <Row>
                                 <Col>
                                     <NetworkComponent name={state.serverPortProps.peerName} img={serverImage} width={64} height={64}/>
@@ -62,7 +62,7 @@ export default class AdapterDesign extends React.Component<any,any> {
                                 </Col>
                             </Row>
                         }
-                        {state.serverPortProps.type == 0 &&
+                        {state.serverPortProps.type === 0 &&
                             <NetworkComponent name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
                         }
                    </Col>

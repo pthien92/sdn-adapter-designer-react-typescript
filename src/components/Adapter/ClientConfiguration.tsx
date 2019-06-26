@@ -73,7 +73,7 @@ export class ClientConfiguration extends React.Component<any,any> {
     handleEditingClientPortDeviceType = (type: string) => {
         const [state, dispatch] = this.context;
         const newClientState = {...state.clientPortProps};
-        newClientState.type = type;
+        newClientState.type = parseInt(type, 10);
         dispatch({clientPortProps: newClientState});
     }
 
@@ -176,8 +176,8 @@ export class ClientConfiguration extends React.Component<any,any> {
                                 value={state.clientPortProps.type}
                                 onChange={(event: any) => this.handleEditingClientPortDeviceType(event.target.value)}
                             >
-                                <option value="0">Tap</option>
-                                <option value="1">Veth</option>
+                                <option value={0}>Tap</option>
+                                <option value={1}>Veth</option>
                             </select>
                         </SelectContainer>
                     </Col>

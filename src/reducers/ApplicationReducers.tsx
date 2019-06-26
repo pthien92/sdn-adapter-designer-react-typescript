@@ -18,7 +18,10 @@ export interface INetworkTranslationProps {
     serverList: {},
     inPorts: number[],
     outPortMap: {}
-    serverMap: {} // this feature is pending
+    serverMap: {} // this feature is pending,
+    adapterName: string
+    adapterDpid: string
+    adapterControllerPort: string
 }
 
 export interface IApplicationState {

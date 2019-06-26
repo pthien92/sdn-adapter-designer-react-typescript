@@ -42,7 +42,10 @@ const initialState: IApplicationState = {
     serverList: { "10.1.2.1" : "00:00:00:00:00:01"},
     inPorts: [1, 3, 5],
     outPortMap: { '1' : '2'},
-    serverMap: {}
+    serverMap: {},
+    adapterName: "sdnadapter",
+    adapterDpid: "5",
+    adapterControllerPort: "6663"
   }
 }
 

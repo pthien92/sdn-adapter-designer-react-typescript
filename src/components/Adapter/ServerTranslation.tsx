@@ -27,7 +27,8 @@ export class ServerTranslation extends React.Component<any,any> {
             isAddingPortMap: false,
             newInPort: "",
             newOutPort: "",
-            selectedOutPortValue: 0
+            selectedOutPortValue: 0,
+            adapterName: "sdnadapter" 
         }
     }
 
@@ -75,7 +76,7 @@ export class ServerTranslation extends React.Component<any,any> {
     }
 
     handleOutPortSelectChange = (index: number) =>{
-        this.setState({selectedValue: index});
+        this.setState({selectedOutPortValue: index});
     }
 
     handleAddNewInPortChange = (newInPort: any) => {
@@ -110,12 +111,86 @@ export class ServerTranslation extends React.Component<any,any> {
 
     handleDeletePortMap = () => {
 
+        const [state, dispatch] = this.context;
+        let newOutPortMap = {...state.networkTranslation.outPortMap};
+        const keyName = Object.keys(state.networkTranslation.outPortMap)[this.state.selectedOutPortValue];
+        delete newOutPortMap[keyName];
+        const newNetworkTranslation = { ...state.networkTranslation};
+        newNetworkTranslation.outPortMap= newOutPortMap;
+        dispatch({networkTranslation: newNetworkTranslation});
+
+    }
+
+    handleAdapterNameChange = (name: string) => {
+        const [state, dispatch] = this.context;
+        const newNetworkTranslation = { ...state.networkTranslation};
+        newNetworkTranslation.adapterName= name;
+        dispatch({networkTranslation: newNetworkTranslation});
+    }
+
+    handleAdapterDpidChange = (id: string) => {
+        const [state, dispatch] = this.context;
+        const newNetworkTranslation = { ...state.networkTranslation};
+        newNetworkTranslation.adapterDpid= id;
+        dispatch({networkTranslation: newNetworkTranslation});
+    }
+
+    handleAdapterControllerPortChange = (port: string) => {
+        const [state, dispatch] = this.context;
+        const newNetworkTranslation = { ...state.networkTranslation};
+        newNetworkTranslation.adapterControllerPort= port;
+        dispatch({networkTranslation: newNetworkTranslation});
     }
 
     render() {
         const [state, dispatch] = this.context;
         return (
             <>
+                <Row>
+                    <Col xs="3">
+                        Adapter 
+                    </Col>
+                    <Col xs="3">
+                         <div className="bp3-input-group bp3-small">
+                            <input
+                                className="bp3-input"
+                                type="input"
+                                value={state.networkTranslation.adapterName}
+                                onChange={(event: any) => this.handleAdapterNameChange(event.target.value)}
+                                placeholder="Bridge name ..."
+                            />
+                        </div>
+                    </Col>
+                    <Col xs="1">
+                        Dpid
+                    </Col>
+                    <Col xs="2">
+                         <div className="bp3-input-group bp3-small">
+                            <input
+                                className="bp3-input"
+                                type="input"
+                                value={state.networkTranslation.adapterDpid}
+                                onChange={(event: any) => this.handleAdapterDpidChange(event.target.value)}
+                                placeholder="dpid ..."
+                            />
+                        </div>
+                    </Col>
+                    <Col xs="1">
+                        Port
+                    </Col>
+                    <Col xs="2">
+                         <div className="bp3-input-group bp3-small">
+                            <input
+                                className="bp3-input"
+                                type="input"
+                                value={state.networkTranslation.adapterControllerPort}
+                                onChange={(event: any) => this.handleAdapterControllerPortChange(event.target.value)}
+                                placeholder="Controller port ..."
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <VerticalSpacer/>
                 <Row>
                     <Col xs="3">
                         Translations

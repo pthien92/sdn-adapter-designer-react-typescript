@@ -72,7 +72,7 @@ export class ServerConfiguration extends React.Component<any,any> {
     handleEditingServerPortDeviceType = (type: string) => {
         const [state, dispatch] = this.context;
         const newServerState = {...state.serverPortProps};
-        newServerState.type = type;
+        newServerState.type = parseInt(type);
         dispatch({serverPortProps: newServerState});
     }
 
@@ -175,8 +175,8 @@ export class ServerConfiguration extends React.Component<any,any> {
                                 value={state.serverPortProps.type}
                                 onChange={(event: any) => this.handleEditingServerPortDeviceType(event.target.value)}
                             >
-                                <option value="0">Tap</option>
-                                <option value="1">Veth</option>
+                                <option value={0}>Tap</option>
+                                <option value={1}>Veth</option>
                             </select>
                         </SelectContainer>
                     </Col>
