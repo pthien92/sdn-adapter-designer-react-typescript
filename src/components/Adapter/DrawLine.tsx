@@ -19,11 +19,21 @@ export class DrawLine extends React.Component<any,any> {
         super(props);
         this.state = {
             clientPortType: props.clientPortType,
-            serverPortType: props.serverPortType
+            serverPortType: props.serverPortType,
+            shouldUpdate: false,
         }
     }
+
+    componentDidUpdate () {
+        setTimeout(() => {
+            this.setState({shouldUpdate: true})
+        }, 200);
+    }
+
     render() {
-        return (
+        const {shouldUpdate} = this.state;
+        if (shouldUpdate) 
+            return (
             <>
                 {this.state.clientPortType === 1 && 
                     <span>
@@ -44,10 +54,14 @@ export class DrawLine extends React.Component<any,any> {
                 }
                 {this.state.serverPortType === 0 &&
                     <span>
-                        <SteppedLineTo zIndex={99} from="serverTap1" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
+                        <SteppedLineTo zIndex={99} from="serverTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
                     </span>
                 }
             </>
         );
+        else 
+            return (
+                <></>
+            );
     }
 }
