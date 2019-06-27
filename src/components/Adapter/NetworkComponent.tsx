@@ -29,7 +29,7 @@ const NetworkViewContainer = styled.div<NetworkViewComponentProps>`
 export class NetworkComponent extends React.Component<any,any> {
     render() {
         return (
-            <NetworkComponentContainer>
+            <NetworkComponentContainer className={this.props.networkItem}>
                 {this.props.name || "unknown"}
                 <NetworkViewContainer img={this.props.img} width={this.props.width} height={this.props.height}/>
             </NetworkComponentContainer>

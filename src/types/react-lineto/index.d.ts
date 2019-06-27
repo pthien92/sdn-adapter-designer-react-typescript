@@ -1,5 +1,5 @@
 declare module 'react-lineto' {
-    import React from 'react';
+    import * as React from 'react';
     interface ReactLineToProps {
         borderColor?: string
         borderStyle?: string
@@ -13,6 +13,21 @@ declare module 'react-lineto' {
         zIndex?: number
     }
 
-    export default class LineTo extends React.Component<ReactLineToProps> { }
+    interface ReactSteppedLineToProps {
+        borderColor?: string
+        borderStyle?: string
+        borderWidth?: number
+        className?: string
+        delay?: number 
+        orientation?: "h" | "v"
+        fromAnchor?: string
+        from: string
+        toAnchor?: string
+        to: string
+        within?: string
+        zIndex?: number
+    }
+
+    class SteppedLineTo extends React.Component<ReactSteppedLineToProps> { }
 }
 

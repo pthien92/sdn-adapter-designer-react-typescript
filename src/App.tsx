@@ -20,6 +20,7 @@ const initialState: IApplicationState = {
   loading: false,
   theme: localStorage.getItem("theme") || "bp-dark",
   navbarTabId: localStorage.getItem('navbarTabId') || 'configuration',
+  shouldUpdateDrawing: false,
   clientPortProps: {
     name: "pgwtap",
     peerName: "pgwtapgen",

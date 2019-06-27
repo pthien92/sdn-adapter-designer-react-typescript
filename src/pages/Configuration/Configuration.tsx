@@ -18,8 +18,8 @@ export class Configuration extends React.Component<any,any> {
         initialLayout: {
             lg: [
                 {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},
-                {i: 'script-code-panel', x: 0, y:5, w: 6, h: 14},
-                {i: 'controller-code-panel', x: 5, y:5, w: 6, h: 14},
+                {i: 'script-code-panel', x: 0, y:5, w: 6, h: 11},
+                {i: 'controller-code-panel', x: 5, y:5, w: 6, h: 11},
             ],
         }
     }
@@ -27,9 +27,9 @@ export class Configuration extends React.Component<any,any> {
     generateLayout = () => {
         return {
             lg: [
-                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 8},
-                {i: 'script-code-panel', x: 0, y:8, w: 6, h: 12},
-                {i: 'controller-code-panel', x: 6, y:8, w: 6, h: 12},
+                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 7},
+                {i: 'script-code-panel', x: 0, y:7, w: 6, h: 11},
+                {i: 'controller-code-panel', x: 7, y:7, w: 6, h: 11},
             ],
             md: [
                 {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},

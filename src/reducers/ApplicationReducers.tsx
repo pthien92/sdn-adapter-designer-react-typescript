@@ -29,6 +29,7 @@ export interface IApplicationState {
     loading: boolean
     theme: string
     navbarTabId: any
+    shouldUpdateDrawing: boolean
     clientPortProps: ISDNAdapterPortProps
     serverPortProps: ISDNAdapterPortProps
     networkTranslation: INetworkTranslationProps
