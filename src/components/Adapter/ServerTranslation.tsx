@@ -97,7 +97,7 @@ export class ServerTranslation extends React.Component<any,any> {
             this.state.newInPort === "" || this.state.newOutPort === "" || 
             (this.state.newInPort === this.state.newOutPort)
             ) {
-            AppNotification.show({icon: 'error', message: "Ports numbber can not be empty, or equals", intent: Intent.WARNING})
+            AppNotification.show({icon: 'error', message: "Ports number can not be empty, or equals", intent: Intent.WARNING})
         } else {
             AppNotification.show({icon: 'tick-circle', message: "Added Port Map", intent: Intent.SUCCESS})
             let newPortMap: any = {...state.networkTranslation.outPortMap}; 
@@ -224,6 +224,7 @@ export class ServerTranslation extends React.Component<any,any> {
                     </Col>
                 </Row>
                 { this.state.isAddingServer &&
+                <VerticalSpacer/> &&
                 <Row>
                     <Col xs="3">
                         New ...
@@ -290,6 +291,7 @@ export class ServerTranslation extends React.Component<any,any> {
 
                 </Row>
                 { this.state.isAddingPortMap &&
+                <VerticalSpacer/> &&
                 <Row>
                     <Col xs="3">
                         New ...
@@ -316,7 +318,7 @@ export class ServerTranslation extends React.Component<any,any> {
                             />
                         </div>
                     </Col>
-                    <Col xs="1">
+                    <Col xs="3">
                         <Button small onClick={this.handleAddPortMapSubmit}>Map 1-to-1</Button>
                     </Col>
                 </Row>

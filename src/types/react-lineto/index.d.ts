@@ -28,6 +28,7 @@ declare module 'react-lineto' {
         zIndex?: number
     }
 
+    class LineTo extends React.Component<ReactLineToProps> { }
     class SteppedLineTo extends React.Component<ReactSteppedLineToProps> { }
 }
 

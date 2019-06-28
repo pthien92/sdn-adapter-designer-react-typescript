@@ -19,15 +19,18 @@ class LteAdapterController13(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(LteAdapterController13, self).__init__(*args, **kwargs)
         self.servers = {
-                        '10.1.2.1' : '00:00:00:00:00:01',
+                        {0}
                         # insert more server if needed
                         }
         self.adapter_veth_ips = {
-                        '10.1.2.4' : '00:00:00:00:10:04', 
+                        {1}
                         # insert more veth ip:mac if needed
                         }
         self.in_port_list = [1,3,5]     # clients should connect to this port number, if have, you can choose other port numbers
-        self.out_port_map = {'1': '2'}  # which means packets NATTED at port 1, output to port 2, this is important
+        # if packets get NATTED at port 1, output to port 2, this is important
+        self.out_port_map = {
+                        {2}
+                        }  
         self.external_port = 30000;     # initial value
         self.ip_to_port = {};           # keep track of internal IPs represented as external ports, can be used for other purpose
 

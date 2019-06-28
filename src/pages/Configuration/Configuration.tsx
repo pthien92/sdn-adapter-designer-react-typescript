@@ -27,9 +27,9 @@ export class Configuration extends React.Component<any,any> {
     generateLayout = () => {
         return {
             lg: [
-                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 7},
-                {i: 'script-code-panel', x: 0, y:7, w: 6, h: 11},
-                {i: 'controller-code-panel', x: 7, y:7, w: 6, h: 11},
+                {i: 'adapter-panel', x: 0, y: 0, w: 12, h: 8.5},
+                {i: 'script-code-panel', x: 0, y: 10, w: 6, h: 10},
+                {i: 'controller-code-panel', x: 7, y: 10, w: 6, h: 10},
             ],
             md: [
                 {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},

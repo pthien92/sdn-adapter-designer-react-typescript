@@ -20,48 +20,35 @@ export class DrawLine extends React.Component<any,any> {
         this.state = {
             clientPortType: props.clientPortType,
             serverPortType: props.serverPortType,
-            shouldUpdate: false,
         }
     }
 
-    componentDidUpdate () {
-        setTimeout(() => {
-            this.setState({shouldUpdate: true})
-        }, 200);
-    }
-
     render() {
-        const {shouldUpdate} = this.state;
-        if (shouldUpdate) 
-            return (
-            <>
-                {this.state.clientPortType === 1 && 
-                    <span>
-                        <SteppedLineTo zIndex={99} from="clientTap1" to="clientTap2" orientation="h" borderWidth={3} borderColor={"green"}/>
-                        <SteppedLineTo zIndex={99} from="clientTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
-                    </span>
-                }
-                {this.state.clientPortType === 0 && 
-                    <span>
-                        <SteppedLineTo zIndex={99} from="clientTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
-                    </span>
-                }
-                {this.state.serverPortType === 1 &&
-                    <span>
-                        <SteppedLineTo zIndex={99} from="switch" to="serverTap2" orientation="h" borderWidth={3} borderColor={"green"}/>
-                        <SteppedLineTo zIndex={99} from="serverTap2" to="serverTap1" orientation="h" borderWidth={3} borderColor={"green"}/>
-                    </span>
-                }
-                {this.state.serverPortType === 0 &&
-                    <span>
-                        <SteppedLineTo zIndex={99} from="serverTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
-                    </span>
-                }
-            </>
-        );
-        else 
-            return (
-                <></>
-            );
+        return (
+        <>
+            {this.state.clientPortType === 1 && 
+                <span>
+                    <SteppedLineTo delay={50} zIndex={98} from="clientTap1" to="clientTap2" orientation="h" borderWidth={3} borderColor={"green"}/>
+                    <SteppedLineTo delay={50} zIndex={98} from="clientTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
+                </span>
+            }
+            {this.state.clientPortType === 0 && 
+                <span>
+                    <SteppedLineTo delay={50} zIndex={98} from="clientTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
+                </span>
+            }
+            {this.state.serverPortType === 1 &&
+                <span>
+                    <SteppedLineTo delay={50} zIndex={98} from="switch" to="serverTap2" orientation="h" borderWidth={3} borderColor={"green"}/>
+                    <SteppedLineTo delay={50} zIndex={98} from="serverTap2" to="serverTap1" orientation="h" borderWidth={3} borderColor={"green"}/>
+                </span>
+            }
+            {this.state.serverPortType === 0 &&
+                <span>
+                    <SteppedLineTo delay={50} zIndex={98} from="serverTap2" to="switch" orientation="h" borderWidth={3} borderColor={"green"}/>
+                </span>
+            }
+        </>
+    );
     }
 }

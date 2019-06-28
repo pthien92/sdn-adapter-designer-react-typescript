@@ -54,7 +54,42 @@ export class CodeEditor extends React.Component<any, any> {
     }
 
     static processControllerCode(code: any, props: any) {
-        return code;
+        // build map
+        let serverList: string = "";
+        Object.keys(props.networkTranslation.serverList).map((item: string, index: number) => {
+            serverList = serverList + "\'" + item + "\':\'" + props.networkTranslation.serverList[item] + "\',\n"
+            serverList = serverList + "\t\t\t\t\t\t";
+        });
+
+        let vethIps: string = "";
+        if (props.clientPort.ip !== "0.0.0.0") {
+            vethIps = "\'" + props.clientPort.ip + "\':\'" + props.clientPort.mac + "\',\n\t\t\t\t\t\t";
+        }
+
+        if (props.serverPort.ip !== "0.0.0.0") {
+            vethIps = "\'" + props.serverPort.ip + "\':\'" + props.serverPort.mac + "\',\n\t\t\t\t\t\t";
+        }
+
+        let outPortMap: string = "";
+        Object.keys(props.networkTranslation.outPortMap).map((item: string, index: number) => {
+            outPortMap = outPortMap + "\'" + item + "\':\'" + props.networkTranslation.outPortMap[item] + "\',\n"
+            outPortMap = outPortMap + "\t\t\t\t\t\t";
+        });
+
+        const replacingValues = [
+            serverList,
+            vethIps,
+            outPortMap
+        ]
+        const newCode = code.replace(/\{\d+\}/g, (substr: any) => {
+            const i = parseInt(substr.replace(/\{|\}/g, ""), 10);
+            const replacingValue = replacingValues[i];
+            if (replacingValue) {
+                return replacingValue;
+            } 
+            return substr;
+        })
+        return newCode;
     }
 
     static getDerivedStateFromProps(nextProps: any, prevState: any) {

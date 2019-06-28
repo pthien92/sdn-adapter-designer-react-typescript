@@ -4,7 +4,7 @@ import { ApplicationReducer, IApplicationState } from './reducers/ApplicationRed
 import StateProvider from './components/StateProvider/StateProvider';
 import { Router, Switch, Route, Redirect } from 'react-router';
 import { DeviceType } from './reducers/ApplicationReducers';
-
+import './App.css';
 import 'normalize.css/normalize.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
