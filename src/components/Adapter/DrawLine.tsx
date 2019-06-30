@@ -14,6 +14,7 @@ export class DrawLine extends React.Component<any,any> {
                 serverPortType: nextProps.serverPortType
             }
         }
+        return null;
     }
     constructor(props: any) {
         super(props);

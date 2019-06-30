@@ -1,9 +1,14 @@
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import { StateContext } from '../StateProvider/StateProvider';
-import { Card } from '@blueprintjs/core';
+import { Card, Button, H4 } from '@blueprintjs/core';
 import { IRange } from 'monaco-editor';
+import { Row, Col } from 'reactstrap';
+import styled from 'styled-components';
 
+const VerticalSpacer = styled.div`
+    padding: 5px;
+`
 
 const isDifferentPortProps = (left: any, right: any) => {
     let allKeys = Object.keys(left);
@@ -144,7 +149,6 @@ export class CodeEditor extends React.Component<any, any> {
         if (this.state.name === "bash_code") {
             return CodeEditor.editor1;
         } else {
-            console.log("Thien here 3");
             return CodeEditor.editor2;
         }
     }
@@ -167,13 +171,16 @@ export class CodeEditor extends React.Component<any, any> {
     }
 
     commentLines (editor: any, lines: any) {
+        editor.focus();
+        editor.setValue(this.state.code);
         lines.map( (value: number, index: number) => {
-            editor.setPosition({lineNumber: 0, column: 0})
+            // editor.setPosition({lineNumber: 0, column: 0})
             const range: IRange = {startLineNumber: value, startColumn: 1, endLineNumber: value, endColumn: 1};
             const id = { major: 1, minor: 1};
             const text = "# ";
             const op = {identifier: id, range: range, text: text, forceMoveMarkers: true};
-            editor.executeEdits(this.state.code, [op]);
+            editor.executeEdits("", [op]);
+            
         })
     }
 
@@ -188,13 +195,16 @@ export class CodeEditor extends React.Component<any, any> {
     }
 
     onChange = (newValue: any, e: any) => {
-        // console.log('onChange', newValue, e);
-        // this.setState({newCode: newValue})
+        console.log('onChange', newValue, e);
+    }
+
+    copyToClipboard = () => {
+        const editor:any = this.getEditor();
+        editor.executeCommand('copy');
     }
 
     render() {
         const [state, dispatch] = this.context;
-        const showingCode = this.state.newCode;
         const options = {
             selectOnLineNumbers: true,
             minimap: {
@@ -205,13 +215,20 @@ export class CodeEditor extends React.Component<any, any> {
         const instanceNumber = this.state.name === "bash_code" ? 1 : 2;
         return (
             <Card className={state.theme} style={{padding: "10px"}}>
+                <Row>
+                    <Col>
+                        {instanceNumber === 1 && <H4>Setup code</H4>}
+                        {instanceNumber === 2 && <H4>Ryu code</H4>}
+                    </Col>
+                </Row>
+                <VerticalSpacer/>
                 <MonacoEditor
                     ref="monaco"
                     width="100%"
                     height="600"
                     language={this.state.language}
                     theme={state.theme === "bp3-dark" ? "vs-dark" : "vs-light"}
-                    value={showingCode}
+                    value={this.state.newCode}
                     options={options}
                     onChange={this.onChange}
                     editorDidMount={(editor: any, monaco: any) => this.editorDidMount (editor, lines, instanceNumber)}
