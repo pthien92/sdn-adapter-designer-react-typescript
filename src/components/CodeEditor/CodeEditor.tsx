@@ -171,10 +171,9 @@ export class CodeEditor extends React.Component<any, any> {
     }
 
     commentLines (editor: any, lines: any) {
-        editor.focus();
+        editor.setPosition({lineNumber: 0, column: 0})
         editor.setValue(this.state.code);
         lines.map( (value: number, index: number) => {
-            // editor.setPosition({lineNumber: 0, column: 0})
             const range: IRange = {startLineNumber: value, startColumn: 1, endLineNumber: value, endColumn: 1};
             const id = { major: 1, minor: 1};
             const text = "# ";
