@@ -7,7 +7,11 @@ import { Card, H4 } from '@blueprintjs/core';
 import { NetworkComponent } from './NetworkComponent';
 import { ServerTranslation } from './ServerTranslation';
 import { DrawLine } from './DrawLine';
+import styled from 'styled-components';
 
+const VerticalSpacer = styled.div`
+    padding: 10px;
+`
 
 export default class AdapterDesign extends React.Component<any,any> {
     static contextType = StateContext;
@@ -31,6 +35,7 @@ export default class AdapterDesign extends React.Component<any,any> {
         const {loading } = this.state;
         return (
             <Card className={state.theme}>
+                {this.props.breakpoint === 'lg'  &&
                 <Row>
                    <Col>
                         <ClientConfiguration/>
@@ -81,6 +86,65 @@ export default class AdapterDesign extends React.Component<any,any> {
                         <ServerConfiguration/>
                    </Col>
                 </Row> 
+                }
+                {this.props.breakpoint !== 'lg' && 
+                <div>
+                    <Row>
+                        <Col xs="6">
+                            <ClientConfiguration/>
+                        </Col>
+                        <Col xs="6">
+                            <ServerConfiguration/>
+                        </Col>
+                    </Row>
+                    <VerticalSpacer/>
+                    <Row>
+                        <Col xs="3">
+                            {state.clientPortProps.type === 1 && 
+                                <Row>
+                                    <Col>
+                                        <NetworkComponent loading={loading} networkItem={"clientTap1"} name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                                    </Col>
+                                    <Col>
+                                        <NetworkComponent loading={loading} networkItem={"clientTap2"} name={state.clientPortProps.peerName} img={clientImage} width={64} height={64}/>
+                                    </Col>
+                                </Row>
+                            }
+                            {state.clientPortProps.type === 0 &&
+                                <NetworkComponent loading={loading} networkItem={"clientTap2"} name={state.clientPortProps.name} img={clientImage} width={64} height={64}/>
+                            }
+                        </Col>
+                        <Col xs="6">
+                            <Row>
+                                <Col>
+                                    <NetworkComponent loading={loading} networkItem={"switch"} name={<H4>SDN Adapter</H4>} img={"images/router.svg"} width={128} height={128}/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <ServerTranslation/>
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col xs="3">
+                            {state.serverPortProps.type === 1 &&
+                                <Row>
+                                    <Col>
+                                        <NetworkComponent loading={loading} networkItem={"serverTap2"} name={state.serverPortProps.peerName} img={serverImage} width={64} height={64}/>
+                                    </Col>
+                                    <Col>
+                                        <NetworkComponent loading={loading} networkItem={"serverTap1"} name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
+                                    </Col>
+                                </Row>
+                            }
+                            {state.serverPortProps.type === 0 &&
+                                <NetworkComponent loading={loading} networkItem={"serverTap2"} name={state.serverPortProps.name} img={serverImage} width={64} height={64}/>
+                            }
+                        </Col>
+                    </Row>
+                </div>
+
+                }
                 <DrawLine clientPortType={state.clientPortProps.type} serverPortType={state.serverPortProps.type}/>
             </Card>
         );

@@ -21,6 +21,13 @@ export class Configuration extends React.Component<any,any> {
                 {i: 'script-code-panel', x: 0, y:5, w: 6, h: 11},
                 {i: 'controller-code-panel', x: 5, y:5, w: 6, h: 11},
             ],
+        },
+    }
+
+    constructor(props: any) {
+        super(props);
+        this.state = { 
+            currentBreakpoint: 'lg'
         }
     }
 
@@ -32,16 +39,20 @@ export class Configuration extends React.Component<any,any> {
                 {i: 'controller-code-panel', x: 7, y: 10, w: 6, h: 10},
             ],
             md: [
-                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},
-                {i: 'script-code-panel', x: 0, y:0, w: 12, h: 12},
-                {i: 'controller-code-panel', x: 0, y:0, w: 12, h: 12},
+                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 14},
+                {i: 'script-code-panel', x: 0, y:14, w: 5, h: 7},
+                {i: 'controller-code-panel', x: 5, y:14, w: 5, h: 7},
             ],
             sm: [
-                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 4},
-                {i: 'script-code-panel', x: 0, y:0, w: 12, h: 4},
-                {i: 'controller-code-panel', x: 0, y:0, w: 12, h: 4},
+                {i: 'adapter-panel', x: 0, y:0, w: 12, h: 14},
+                {i: 'script-code-panel', x: 0, y:14, w: 6, h: 7},
+                {i: 'controller-code-panel', x: 7, y:14, w: 6, h: 7},
             ]
         }
+    }
+
+    handleBreakpointChange = (newBreakpoint: string) => {
+        this.setState({currentBreakpoint: newBreakpoint});
     }
 
     render() {
@@ -57,9 +68,11 @@ export class Configuration extends React.Component<any,any> {
                     isDraggable={false}
                     onLayoutChange={(currentLayout: Layout[], allLayouts: any) => console.log(currentLayout)}
                     draggableCancel="input,textarea,button"
+                    onBreakpointChange={(newBreakpoint: string, newCols: number) => this.handleBreakpointChange(newBreakpoint)}
+                    breakpoints={{lg: 1200, md: 1050, sm: 768, xs: 480, xxs: 0}}
                 >
                     <div key="adapter-panel" >
-                        <AdapterDesign/>
+                        <AdapterDesign breakpoint={this.state.currentBreakpoint}/>
                     </div>
                     <div key="script-code-panel" >
                         <CodeEditor name="bash_code" code={script_code} language="shell"
@@ -67,6 +80,7 @@ export class Configuration extends React.Component<any,any> {
                             clientPort={state.clientPortProps}
                             serverPort={state.serverPortProps}
                             networkTranslation={state.networkTranslation}
+                            editorWidth={this.state.currentBreakpoint === 'lg' ? "100%" : "200%"}
                         />
                     </div>
                     <div key="controller-code-panel" >
