@@ -193,7 +193,7 @@ export class ServerTranslation extends React.Component<any,any> {
                 <VerticalSpacer/>
                 <Row>
                     <Col xs="3">
-                        Translations
+                        Servers
                     </Col>
                     <Col>
                         <SelectContainer className="bp3-select bp3-small"
