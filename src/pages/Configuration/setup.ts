@@ -14,7 +14,7 @@ sudo ovs-vsctl add-br {7}
 sudo ovs-vsctl set bridge {7} protocols=OpenFlow13 
 sudo ovs-vsctl set bridge {7} other-config:datapath-id={8}
 sudo ovs-vsctl set-controller {7} "tcp:127.0.0.1:{9}"
-sudo ip link set {7} promisc on
+sudo ip link set {7} up promisc on
 # Add port
 sudo ovs-vsctl add-port {7} {0}
 sudo ovs-vsctl add-port {7} {1}
